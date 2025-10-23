@@ -1,0 +1,13 @@
+﻿@model ContractMonthlyClaimSystem.Models.Domain.ClaimStatus
+@switch (Model)
+{
+    case ContractMonthlyClaimSystem.Models.Domain.ClaimStatus.Pending:
+        <span class="badge bg-warning text-dark">Pending</span>
+        break;
+    case ContractMonthlyClaimSystem.Models.Domain.ClaimStatus.Approved:
+        <span class="badge bg-success">Approved</span>
+        break;
+    case ContractMonthlyClaimSystem.Models.Domain.ClaimStatus.Rejected:
+        <span class="badge bg-danger">Rejected</span>
+        break;
+}

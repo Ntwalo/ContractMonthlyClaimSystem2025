@@ -1,0 +1,52 @@
+﻿@model ContractMonthlyClaimSystem.Models.ViewModels.ClaimCreateViewModel
+@{
+    Layout = "_Layout";
+}
+<h3>Submit Claim</h3>
+<form asp-action="Create" method="post" enctype="multipart/form-data" class="mt-3">
+    <div class="mb-3">
+        <label class="form-label">Hours Worked</label>
+        <input asp-for="HoursWorked" class="form-control" />
+        <span asp-validation-for="HoursWorked" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Hourly Rate</label>
+        <input asp-for="HourlyRate" class="form-control" />
+        <span asp-validation-for="HourlyRate" class="text-danger"></span>
+        <div class="form-text">Auto-calculates total client-side.</div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Total</label>
+        <input type="text" id="totalDisplay" class="form-control" readonly />
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Notes</label>
+        <textarea asp-for="Notes" class="form-control"></textarea>
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Supporting Document</label>
+        <input asp-for="SupportingDocument" type="file" class="form-control" />
+        <div class="form-text">Allowed: .pdf, .docx, .xlsx (max 5 MB)</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        const hours = document.getElementById("HoursWorked");
+        const rate = document.getElementById("HourlyRate");
+        const total = document.getElementById("totalDisplay");
+        function recalc() {
+            const h = parseFloat(hours.value || "0");
+            const r = parseFloat(rate.value || "0");
+            const t = (isNaN(h) || isNaN(r)) ? 0 : h * r;
+            total.value = t.toFixed(2);
+        }
+        hours.addEventListener("input", recalc);
+        rate.addEventListener("input", recalc);
+        recalc();
+    </script>
+}

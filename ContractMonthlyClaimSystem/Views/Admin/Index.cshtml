@@ -1,0 +1,36 @@
+﻿@model List<ContractMonthlyClaimSystem.Models.ViewModels.ClaimListItemViewModel>
+@{
+    Layout = "_Layout";
+}
+<div class="d-flex justify-content-between align-items-center">
+    <h3>Pending Claims</h3>
+    <a class="btn btn-outline-secondary" asp-controller="Claims" asp-action="Index">Switch to Lecturer</a>
+</div>
+<table class="table table-hover mt-3">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Lecturer</th>
+            <th>Date</th>
+            <th>Hours</th>
+            <th>Rate</th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            var item = Model[i];
+            <tr>
+                <td>@(i + 1)</td>
+                <td>@item.LecturerName</td>
+                <td>@item.SubmissionDate.ToString("yyyy-MM-dd")</td>
+                <td>@item.HoursWorked</td>
+                <td>@item.HourlyRate</td>
+                <td>@item.Total</td>
+                <td><a class="btn btn-sm btn-outline-primary" asp-action="Details" asp-route-id="@item.ClaimId">View</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
